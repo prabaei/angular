@@ -1,0 +1,10 @@
+<div class="container">
+ <app-server (onserveOrCreated)="onServerAdded($event)"
+ (onblueCreated)="onBlueprintAdded($event)"
+ ></app-server>
+  <hr>
+  <app-cockpit
+  *ngFor="let ele of serverElements"
+  [element]="ele"></app-cockpit>
+
+</div>
