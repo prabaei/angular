@@ -1,0 +1,107 @@
+Angular Routing....
+Routing...
+
+1.appModule - registration
+	const approutes: Routes (Routes import form @ angular /router)
+	
+	{
+{path:'user',component:},//'' for homecomponent
+{path:'server',component:---componentname--}
+}
+
+2.new import in MOdule.ts
+	RouterModule.forRoot(approutes);//const
+
+3. app.component.html
+<router-outlet></router-outlet>
+
+4.special Directive
+	routerLink="/" ///in <a> tag
+	[routerLink]="['/user']" // query string case
+
+5. absolute path
+	remove / from /user ie. user now become relative path
+
+6.Tab Active marking
+
+	routerLinkActive="active"
+	// in case of empty path segment
+	fix 
+	[routerLinkActiveOptions]="{exact:true}"
+
+7.navigating programatically
+	triggering navigaiton
+	component.ts -->
+	onClickfun
+	inject router:Router //@anglur/router
+	this.router.navigate(['/servers',2,'vmware']);//2,3 parmaeter are optionlan query string
+
+	relative path
+	
+	this.router.navigate(['servers',2,'vmware'])
+	// the above code does not look for servers/servers
+	// because it always looks from the host
+	// inorder to make it relative
+	(i)inject route:ActivatedRoute // @anglular/router
+	(ii)this.router.navigate(['servers',{relativeTo:this.route}])
+
+8.passing parameter route
+	const approutes: Routes (Routes import form @ angular /router)
+	
+	{
+{path:'user/:id/:name',component:},//'' id is parameter
+{path:'server',component:---componentname--}
+}
+	
+	user component.ts
+	inject route:activatedRoute
+	ngOnInit()
+	this.user={
+	id:this.route.snapshot.params['id'];
+}
+
+
+9. fetch route parmeter reactively
+	<a [routerlik]="['/user',10,'anna']">load</a>
+	on clicking this link the url changes but the content in page doe't
+	quick fix
+	ngOnInit()
+	this.user={
+	id:this.route.snapshot.params['id'];
+	}
+	this.route.params.subscribe(
+(params:Params)=> {tis.user.id=params['id']} //params from @angular/router
+);
+
+
+
+10.Destroy sucscribe
+	i. implemet OnDestroy
+	ii. paramsubsctiptoin:Subscription;//rxsometig
+	iii. this.paramsubsctiptoin = this.route.params.subscribe(
+	(params:Params)=> {tis.user.id=params['id']} //params from @angular/router
+	);
+	iv.ngOnDestroy(){
+	this.paramsubsctiptoin.unscuscribe();
+	}
+
+11.passing query string and Fragments
+	in <a
+	[routerLink]="['/servers',5,'edit']"
+	[queryParams]='{allowEdit:'1'}'
+	fragment='loading'> link</a>
+
+	in prgramatic approach
+	this.router.navigate(['/servers',id,'edit'],{queryParams:{alloWdit:'1'},fragment:'loading'});
+
+12.retriveing query param
+	i. router:activeatedRoute //injector
+	ii. snapshot.queryParams
+		snapshot.fragment
+/// alternate
+
+is subscribe() to route.queryParams.subscribe();
+		route.fragment.subscribe();
+
+
+	
