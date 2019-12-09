@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {Route, RouterModule} from '@angular/router';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -12,14 +12,14 @@ import { EditServerComponent } from './servers/edit-server/edit-server.component
 import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
 
-const routes:Route[]=[
-{path:'',component:HomeComponent},
-{path:'user/:id/:name',component:UserComponent},
-{path:'server',component:ServersComponent},
-{path:'server/:id',component:ServerComponent},
-{path:'server/:id/edit',component:EditServerComponent},
-{path:'user',component:UsersComponent},
-];
+import { authgaurd } from './app.services.authgaurd';
+import { Authenticate } from './app.services.authenticate';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { routeModule } from './app.routing.module';
+import { canDeactivateAuthGuard } from './servers/edit-server/server.candeactivate';
+import { serverResolver } from './servers/server/server.resolver';
+
+
 
 @NgModule({
   declarations: [
@@ -29,14 +29,16 @@ const routes:Route[]=[
     ServersComponent,
     UserComponent,
     EditServerComponent,
-    ServerComponent
+    ServerComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(routes),
+    routeModule
   ],
-  providers: [ServersService],
+  providers: [ServersService,authgaurd,
+    Authenticate,canDeactivateAuthGuard,serverResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
