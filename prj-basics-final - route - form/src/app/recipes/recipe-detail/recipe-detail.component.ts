@@ -13,7 +13,9 @@ export class RecipeDetailComponent implements OnInit {
   recipe:Recipe;
   recipeId:number;
   constructor(private recipeSer:RecipeServices,private route:ActivatedRoute,private router:Router) { }
-
+deleteRecipe(){
+  this.recipeSer.deleteRecipe(this.recipeId);
+}
   ngOnInit() {
     this.route.params.subscribe((param)=>{
       this.recipeId=+param["id"];

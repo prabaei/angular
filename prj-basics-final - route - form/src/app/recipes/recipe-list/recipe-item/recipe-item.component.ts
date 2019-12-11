@@ -22,6 +22,6 @@ export class RecipeItemComponent implements OnInit {
   selectedRecipe() {
     //console.log('first Event emit');
     //this.redipeSelected.emit();
-    this.recipeSer.recipeSelected.emit(this.recipe);
+    this.recipeSer.recipeSelected.next(this.recipe);
     }
 }
